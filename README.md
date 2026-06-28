@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Autoelektrika Berdik — Landing Page
 
-## Getting Started
+Premium landing page s digitalnim pomoćnikom za **Autoelektrika Berdik**, autoelektričarski servis u Velikoj Gorici.
 
-First, run the development server:
+## Tech stack
+
+- Next.js App Router + TypeScript
+- Tailwind CSS v4
+- shadcn/ui-style komponente (Button, Badge, Dialog)
+- framer-motion animacije
+- lucide-react + react-icons ikone
+
+## Pokretanje lokalno
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Otvori [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+## Što je demo
 
-To learn more about Next.js, take a look at the following resources:
+Ova stranica je **demo/prototip** koji uključuje:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Premium landing page s tamnim automotive dizajnom
+- Mock digitalni pomoćnik (chat widget) s hardkodiranim odgovorima
+- **Nema** pravog slanja poruka servisu
+- **Nema** pravog bookinga termina
+- Galerija i recenzije koriste placeholder sadržaj
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Struktura projekta
 
-## Deploy on Vercel
+```
+app/
+  page.tsx          — glavna landing stranica
+  layout.tsx        — root layout + metadata
+  globals.css       — tamna premium tema
+components/
+  navbar.tsx
+  hero.tsx
+  problem-section.tsx
+  services-section.tsx
+  premium-section.tsx
+  digital-assistant-section.tsx
+  chat-widget.tsx
+  chat-provider.tsx
+  how-it-works.tsx
+  about-section.tsx
+  gallery-section.tsx
+  testimonials.tsx
+  contact-section.tsx
+  footer.tsx
+  ui/               — shadcn-style komponente
+lib/
+  data.ts           — svi tekstovi i podaci (lako za prilagodbu)
+  chat-logic.ts     — mock logika odgovora chata
+  utils.ts
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Kako spojiti pravi sustav
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 1. Baza podataka (Supabase)
+
+- Tablice: `inquiries`, `appointments`, `customers`
+- Spremanje upita iz chata s podacima o vozilu i simptomima
+
+### 2. LLM API route
+
+```typescript
+// app/api/chat/route.ts
+// TODO: Replace mock response logic with real LLM API route + WhatsApp Business integration.
+```
+
+Preporučeni provideri: Groq, xAI, OpenAI — za generiranje follow-up pitanja i sažetka upita.
+
+### 3. WhatsApp Business
+
+- WhatsApp Business Cloud API ili legalni WhatsApp provider (Twilio, 360dialog)
+- Slanje potvrde termina klijentu
+- Obavijest vlasniku o novom upitu
+
+### 4. Kalendar
+
+- Google Calendar API ili Cal.com za termine
+- Admin panel za potvrdu/odbijanje termina
+
+### 5. Admin panel
+
+- Pregled upita
+- Potvrda termina
+- Povijest komunikacije
+
+## Sigurnosne napomene
+
+Digitalni pomoćnik **ne smije**:
+
+- Davati tehničke garancije ili obećavati popravak
+- Zaključivati konačnu dijagnozu
+- Samostalno potvrđivati termine
+
+Pomoćnik **samo**:
+
+- Prikuplja simptome i podatke o vozilu
+- Priprema uredan upit za servis
+- Predlaže termin (potvrđuje vlasnik/servis)
+
+## TODO prije produkcije
+
+- [ ] Provjeriti kontakt podatke s vlasnikom (`lib/data.ts`)
+- [ ] Zamijeniti placeholder fotografije pravim slikama iz radionice
+- [ ] Zamijeniti placeholder recenzije stvarnim (Facebook/Google)
+- [ ] Spojiti WhatsApp i LLM API
+- [ ] Dodati Google Analytics / cookie banner ako treba
+
+## Deployment (Vercel)
+
+1. Push na GitHub
+2. Import projekta u Vercel
+3. Deploy — nema dodatne konfiguracije
+
+## Kontakt (placeholder)
+
+- **Adresa:** Pleška 92, Velika Gorica
+- **Mobitel:** +385 91 254 6637
+- **Fiksni:** 01 / 626 5708
+- **Facebook:** [autoelektrika.berdik](https://web.facebook.com/autoelektrika.berdik)
